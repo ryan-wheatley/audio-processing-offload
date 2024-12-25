@@ -2,6 +2,7 @@
 
 This repository demonstrates a proof of concept (POC) for offloading real-time audio effect processing from the frontend to a backend server. The project features a **Vite React frontend** and an **Express backend**, showcasing seamless playback, audio processing, and crossfading.
 
+![img.png](visual.jpg)
 ---
 
 ## Features
