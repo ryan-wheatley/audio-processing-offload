@@ -7,6 +7,7 @@ import Waveform from "./components/Waveform.tsx"
 import { motion } from "motion/react"
 import { getSharedAudioContext } from "./sharedAudioContext"
 import Visualiser from "./components/Visualiser.tsx"
+import FrequencyKnob from "./components/Knob.tsx";
 
 // ... your schemas, etc.
 
@@ -217,24 +218,28 @@ const App: React.FC = () => {
         )}
 
         <div className="flex w-full justify-between gap-[8px] p-[8px]">
-          test-audio.mp3
-          <div className="flex gap-[8px]">
+          <span className={'text-neutral-500'}>test-audio.mp3</span>
+          <div className="flex items-center gap-[8px]">
             <button
               onClick={handlePlay}
               disabled={!audioUrl}
-              className="bg flex h-[20px] w-[20px] rounded-full border border-neutral-950 bg-green-600"
-            />
+              className={`${isPlaying ? 'text-white' : "text-neutral-500"}`}
+            >
+              <svg width="16" height="16" viewBox="0 0 60 70" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M60 35L-3.26266e-06 69.641L-2.34249e-07 0.358979L60 35Z" fill='currentColor'/>
+              </svg>
+            </button>
             <button
               onClick={handlePause}
               disabled={!audioUrl}
-              className="bg flex h-[20px] w-[20px] border border-neutral-950 bg-white"
+              className={`${!isPlaying ? 'bg-white' : "bg-neutral-500"} bg flex h-[16px] w-[16px]`}
             />
           </div>
         </div>
 
         {audioUrl && <Waveform isPlaying={isPlaying} audioUrl={audioUrl} />}
 
-        <div className="flex min-w-[500px] flex-col gap-[8px] overflow-hidden rounded bg-neutral-700 p-[8px]">
+        <div className="flex min-w-[500px] flex-col gap-[8px] overflow-hidden rounded-b bg-neutral-700 p-[8px]">
           {/* Header */}
           <div className="flex items-center justify-between gap-[4px]">
             <div className="flex items-center gap-[8px]">
@@ -262,20 +267,11 @@ const App: React.FC = () => {
 
             <form
               onSubmit={handleSubmit}
-              className={"flex flex-grow rounded bg-neutral-800"}
+              className={"flex  items-center flex-grow rounded bg-neutral-800"}
             >
-              <div className="flex w-full flex-col items-center justify-center">
-                <label>Freq</label>
-                <input
-                  type="number"
-                  value={filterFrequency}
-                  className="bg-transparent"
-                  onChange={handleFrequencyChange}
-                  min="20"
-                  max="20000"
-                />
-                <button type="submit">Freeze</button>
-              </div>
+
+                <FrequencyKnob frequency={filterFrequency}/>
+                {/*<button type="submit">Freeze</button>*/}
             </form>
           </div>
 

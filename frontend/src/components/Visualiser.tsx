@@ -216,16 +216,15 @@ const LogVisualizer: React.FC<LogVisualizerProps> = ({
       <div
         onMouseDown={handleMouseDown}
         style={{
-          position: "absolute",
+          position: "absolute" ,
           left: `${circleX - circleRadius}px`,
           top: `${circleY - circleRadius}px`,
           width: `${circleRadius * 2}px`,
           height: `${circleRadius * 2}px`,
           borderRadius: "50%",
-          cursor: "grab",
           userSelect: "none",
         }}
-        className={"bg-amber-400"}
+        className={"bg-blue-400"}
       />
     </div>
   )
