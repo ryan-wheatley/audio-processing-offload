@@ -218,7 +218,7 @@ const LogVisualizer: React.FC<LogVisualizerProps> = ({
 
   return (
     <div
-      className="relative"
+      className="relative rounded overflow-hidden"
       style={{ width: CANVAS_WIDTH, height: CANVAS_HEIGHT }}
     >
       {/* Canvas with the EQ line */}

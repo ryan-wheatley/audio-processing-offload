@@ -195,16 +195,6 @@ const App: React.FC = () => {
     }
   }
 
-  const handleFrequencyChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const frequency = Number(event.target.value)
-    setFilterFrequency(frequency)
-    if (filterNode) {
-      filterNode.frequency.value = frequency
-    }
-  }
-
   return (
     <div className="flex w-screen justify-center">
       <div className="relative min-w-[500px] overflow-hidden rounded bg-neutral-800">
@@ -247,7 +237,10 @@ const App: React.FC = () => {
               <div className="font-semibold tracking-tighter">
                 Lowpass Filter
               </div>
+
             </div>
+
+            <button className={'bg-neutral-800 py-[2px] px-[8px] transition-all rounded'} onClick={handleSubmit}>{isFrozen ? 'Unfreeze' : "Freeze"}</button>
           </div>
 
           {/* Body */}
@@ -265,14 +258,13 @@ const App: React.FC = () => {
               analyser={analyser}
             />
 
-            <form
+            <div
               onSubmit={handleSubmit}
               className={"flex  items-center flex-grow rounded bg-neutral-800"}
             >
 
                 <FrequencyKnob frequency={filterFrequency}/>
-                {/*<button type="submit">Freeze</button>*/}
-            </form>
+            </div>
           </div>
 
           {responseMessage && <p>{responseMessage}</p>}
