@@ -22,6 +22,7 @@ const App: React.FC = () => {
   const [analyser, setAnalyser] = useState<AnalyserNode | null>(null)
 
   const [isFrozen, setIsFrozen] = useState<boolean>(false)
+  const [isProcessing, setIsProcessing] = useState<boolean>(false)
   const [isPlaying, setIsPlaying] = useState(false)
   const [audioUrl, setAudioUrl] = useState<string | null>(null)
   const [sourceNode, setSourceNode] = useState<AudioBufferSourceNode | null>(
@@ -71,7 +72,7 @@ const App: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
-
+    setIsProcessing(true)
     const fileName = "test-audio.mp3"
 
     try {
@@ -135,6 +136,8 @@ const App: React.FC = () => {
       newGainNode.gain.linearRampToValueAtTime(1, audioContext.currentTime + 1)
 
       setIsFrozen(true)
+      setIsProcessing(false)
+
       // 5) After 1 second, fully stop the old source (if it exists)
       setTimeout(() => {
         if (sourceNode) {
@@ -240,7 +243,11 @@ const App: React.FC = () => {
 
             </div>
 
-            <button className={'bg-neutral-800 py-[2px] px-[8px] transition-all rounded'} onClick={handleSubmit}>{isFrozen ? 'Unfreeze' : "Freeze"}</button>
+            <button className={'bg-neutral-800 py-[2px] px-[8px] transition-all rounded'} onClick={handleSubmit}>{isFrozen ? 'Unfreeze' : isProcessing ?
+              <div className={'flex gap-[8px]'}>
+                Freezing
+                <motion.div animate={{rotate: 360}} transition={{repeat: Infinity, ease: 'linear'}}>L</motion.div>
+              </div> : "Freeze"}</button>
           </div>
 
           {/* Body */}

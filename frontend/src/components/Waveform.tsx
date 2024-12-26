@@ -22,7 +22,7 @@ const Waveform: React.FC<WaveformProps> = ({ audioUrl, isPlaying }) => {
       const response = await fetch(audioUrl)
       const arrayBuffer = await response.arrayBuffer()
 
-      const audioCtx = new (window.AudioContext || window.webkitAudioContext)()
+      const audioCtx = new window.AudioContext()
       const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer)
 
       const rawData = audioBuffer.getChannelData(0) // Use first channel
@@ -137,7 +137,7 @@ const Waveform: React.FC<WaveformProps> = ({ audioUrl, isPlaying }) => {
         y1="0"
         x2={playheadX}
         y2={svgHeight}
-        className={"stroke-white stroke-[1px]"}
+        className={"stroke-white rounded stroke-[0.5px]"}
       />
     </svg>
   )
